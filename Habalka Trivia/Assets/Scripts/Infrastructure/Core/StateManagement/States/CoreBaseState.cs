@@ -2,9 +2,9 @@ using Trivia.Infrastructure.Core.StateManagement.Controller;
 
 namespace Trivia.Infrastructure.Core.StateManagement.States
 {
-    public class BaseLevelState : ILevelState
+    public class CoreBaseState : ICoreState
     {
-        public virtual void Initialize(LevelStateController levelStateController)
+        public virtual void Initialize(CoreStateController coreStateController)
         {
         }
 

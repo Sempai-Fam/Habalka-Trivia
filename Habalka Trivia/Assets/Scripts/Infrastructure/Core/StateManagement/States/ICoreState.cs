@@ -2,9 +2,9 @@ using Trivia.Infrastructure.Core.StateManagement.Controller;
 
 namespace Trivia.Infrastructure.Core.StateManagement.States
 {
-    public interface ILevelState
+    public interface ICoreState
     {
-        void Initialize(LevelStateController levelStateController);
+        void Initialize(CoreStateController coreStateController);
         void Enter();
         void Dispose();
         void Exit();

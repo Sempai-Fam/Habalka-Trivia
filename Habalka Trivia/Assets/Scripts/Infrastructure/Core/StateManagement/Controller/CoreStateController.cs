@@ -5,28 +5,26 @@ using Zenject;
 
 namespace Trivia.Infrastructure.Core.StateManagement.Controller
 {
-    public class LevelStateController : IInitializable, ILateDisposable
+    public class CoreStateController : IInitializable, ILateDisposable
     {
-        private Dictionary<LevelStateType, BaseLevelState> _cachedStates = null;
-        private BaseLevelState _currentState = null;
+        private Dictionary<LevelStateType, CoreBaseState> _cachedStates = null;
+        private CoreBaseState _currentState = null;
 
-        public LevelStateController(LevelInitializeState levelInitializeState,
-            LevelDisposeState levelDisposeState,
-            LevelUpdateState levelUpdateState,
-            OpenQuizState openQuizState)
+        public CoreStateController(CoreEnterState coreEnterState,
+            CoreExitState coreExitState,
+            CoreUpdateState coreUpdateState)
         {
-            _cachedStates = new Dictionary<LevelStateType, BaseLevelState>()
+            _cachedStates = new Dictionary<LevelStateType, CoreBaseState>()
             {
-                { LevelStateType.LevelInitState, levelInitializeState },
-                { LevelStateType.LevelDisposeState, levelDisposeState },
-                { LevelStateType.LevelUpdateState, levelUpdateState },
-                { LevelStateType.OpenQuizState, openQuizState },
+                { LevelStateType.CoreEnter, coreEnterState },
+                { LevelStateType.CoreUpdate, coreExitState },
+                { LevelStateType.CoreExit, coreUpdateState },
             };
         }
         
         public void Initialize()
         {
-            foreach (BaseLevelState state in _cachedStates.Values)
+            foreach (CoreBaseState state in _cachedStates.Values)
             {
                 state.Initialize(this);
             }
@@ -34,7 +32,7 @@ namespace Trivia.Infrastructure.Core.StateManagement.Controller
 
         public void LateDispose()
         {
-            foreach (BaseLevelState state in _cachedStates.Values)
+            foreach (CoreBaseState state in _cachedStates.Values)
             {
                 state.Dispose();
             }
@@ -54,7 +52,7 @@ namespace Trivia.Infrastructure.Core.StateManagement.Controller
             _currentState?.Enter();
         }
 
-        private BaseLevelState GetNextState(LevelStateType type)
+        private CoreBaseState GetNextState(LevelStateType type)
         {
             if (_cachedStates.ContainsKey(type))
             {
