@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Trivia.Infrastructure.UI.Service.Factory.WindowFactory
 {
-    public class WindowFactoryService
+    public class WindowFactoryService : IWindowFactoryService
     {
         private readonly TestWindow.Factory _testWindowFactory;
 

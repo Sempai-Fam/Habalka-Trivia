@@ -1,9 +1,9 @@
 using Trivia.Infrastructure.UI.UIStructure;
 using UnityEngine;
 
-namespace Trivia.Infrastructure.UI.Windows.Base
+namespace Trivia.Infrastructure.UI.Panels.Base
 {
-    public abstract class ObjectWindow : UIElement, IUIElement, IObjectWindow
+    public abstract class ObjectPanel : UIElement, IUIElement, IObjectPanel
     {
         public abstract void SetParent(Transform parent);
 
