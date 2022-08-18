@@ -3,7 +3,7 @@ using Trivia.Infrastructure.Application.Database.RunTime;
 using Trivia.Infrastructure.Core.Builders.LevelMap;
 using Trivia.Infrastructure.Core.Data.RunTimeData;
 
-namespace DefaultNamespace
+namespace Trivia.Infrastructure.Core.Systems
 {
     public class LevelSetUpSystem
     {

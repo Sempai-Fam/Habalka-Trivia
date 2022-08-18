@@ -5,6 +5,7 @@ using Trivia.Infrastructure.Application.Factories.PrefabFactory;
 using Trivia.Infrastructure.Core.Data.RunTimeData;
 using Trivia.Infrastructure.Core.MonoModels.Map;
 using Trivia.Infrastructure.Core.MonoModels.MapCell;
+using UnityEngine.EventSystems;
 
 namespace Trivia.Infrastructure.Core.Builders.LevelMap
 {
@@ -52,7 +53,7 @@ namespace Trivia.Infrastructure.Core.Builders.LevelMap
         {
             var tempMapModel = _levelRunTimeData.MapViewModel;
 
-            foreach (MapCellViewModel cellViewModel in tempMapModel.MapCellViewModels)
+            foreach (CellCategoryViewModel cellViewModel in tempMapModel.MapCellViewModels)
             {
                 var cellIndex = cellViewModel.CellIndex;
                 var questionModel = _levelRunTimeData
@@ -63,9 +64,12 @@ namespace Trivia.Infrastructure.Core.Builders.LevelMap
             }
         }
 
-        private void InitializeCell(int cellIndex, MapCellViewModel cellViewModel, QuizQuestionDataModel questionModel)
+        private void InitializeCell(int cellIndex, CellCategoryViewModel cellCategoryViewModel, QuizQuestionDataModel questionModel)
         {
-            cellViewModel.CellButton.onClick.AddListener(() => OnMapCellButtonClick(cellIndex));
+            EventTrigger.Entry onCellClick = new EventTrigger.Entry();
+            onCellClick.eventID = EventTriggerType.PointerClick;
+            onCellClick.callback.AddListener((_) => { OnMapCellButtonClick(cellIndex); });
+            cellCategoryViewModel.CellEventTrigger.triggers.Add(onCellClick);
         }
 
         private void OnMapCellButtonClick(int cellIndex)

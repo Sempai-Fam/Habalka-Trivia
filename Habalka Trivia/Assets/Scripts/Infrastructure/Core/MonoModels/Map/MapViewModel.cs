@@ -6,8 +6,8 @@ namespace Trivia.Infrastructure.Core.MonoModels.Map
 {
     public class MapViewModel : MonoBehaviour
     {   
-        [SerializeField] private List<MapCellViewModel> _mapCellList = new List<MapCellViewModel>();
+        [SerializeField] private List<CellCategoryViewModel> _mapCellList = new List<CellCategoryViewModel>();
         
-        public IEnumerable<MapCellViewModel> MapCellViewModels => _mapCellList;
+        public IEnumerable<CellCategoryViewModel> MapCellViewModels => _mapCellList;
     }
 }
