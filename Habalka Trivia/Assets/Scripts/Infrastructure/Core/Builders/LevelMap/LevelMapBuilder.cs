@@ -1,34 +1,29 @@
 using System.Linq;
 using Trivia.Infrastructure.Application.Configs.ResourceConfigs.MapAssets;
-using Trivia.Infrastructure.Application.Database.LevelDatabase.Data;
 using Trivia.Infrastructure.Application.Factories.PrefabFactory;
 using Trivia.Infrastructure.Core.Data.RunTimeData;
-using Trivia.Infrastructure.Core.MonoModels.Map;
-using Trivia.Infrastructure.Core.MonoModels.MapCell;
-using UnityEngine.EventSystems;
+using Trivia.Infrastructure.Core.MonoModels.Level;
 
 namespace Trivia.Infrastructure.Core.Builders.LevelMap
 {
     public class LevelMapBuilder : ILevelBuilder
     {
-        private readonly LevelRunTimeData _levelRunTimeData;
-        private readonly CustomPrefabFactory _customPrefabFactory;
-        private readonly MapAssetsConfig _mapAssetsConfig;
+        private readonly LevelRunTimeData _levelRunTimeData = null;
+        private readonly CustomPrefabFactory _customPrefabFactory = null;
+        private readonly LevelAssetsConfig _levelAssetsConfig = null;
 
         public LevelMapBuilder(LevelRunTimeData levelRunTimeData,
             CustomPrefabFactory customPrefabFactory,
-            MapAssetsConfig mapAssetsConfig)
+            LevelAssetsConfig levelAssetsConfig)
         {
             _levelRunTimeData = levelRunTimeData;
             _customPrefabFactory = customPrefabFactory;
-            _mapAssetsConfig = mapAssetsConfig;
+            _levelAssetsConfig = levelAssetsConfig;
         }
 
         public void Build()
         {
             BuildLevelMap();
-            
-            InitializeMapCells();
         }
 
         private void BuildLevelMap()
@@ -40,41 +35,14 @@ namespace Trivia.Infrastructure.Core.Builders.LevelMap
 
         private MapAssetsConfigData InitializeCurrentMapConfig()
         {
-            return _mapAssetsConfig.AssetsConfigData.First(it => it.MapAssetType == MapAssetType.Map1);
+            int currentLevelIndex = 1;
+            return _levelAssetsConfig.AssetsConfigData.First(it => it.LevelIndex == currentLevelIndex);
         }
 
         private void LoadCurrentMap(MapAssetsConfigData currentConfigData)
         {
-            _levelRunTimeData.MapViewModel = _customPrefabFactory
-                .Create<MapViewModel>(_mapAssetsConfig.RootFolderPath, currentConfigData.AssetFileName);
-        }
-
-        private void InitializeMapCells()
-        {
-            var tempMapModel = _levelRunTimeData.MapViewModel;
-
-            foreach (CellCategoryViewModel cellViewModel in tempMapModel.MapCellViewModels)
-            {
-                var cellIndex = cellViewModel.CellIndex;
-                var questionModel = _levelRunTimeData
-                    .CurrentLevelDataModel
-                    .LevelQuestionList.FirstOrDefault(it => it.QuestionIndex == cellIndex);
-                
-                InitializeCell(cellIndex, cellViewModel, questionModel);
-            }
-        }
-
-        private void InitializeCell(int cellIndex, CellCategoryViewModel cellCategoryViewModel, QuizQuestionDataModel questionModel)
-        {
-            EventTrigger.Entry onCellClick = new EventTrigger.Entry();
-            onCellClick.eventID = EventTriggerType.PointerClick;
-            onCellClick.callback.AddListener((_) => { OnMapCellButtonClick(cellIndex); });
-            cellCategoryViewModel.CellEventTrigger.triggers.Add(onCellClick);
-        }
-
-        private void OnMapCellButtonClick(int cellIndex)
-        {
-            
+            _levelRunTimeData.LevelViewModel = _customPrefabFactory
+                .Create<LevelViewModel>(_levelAssetsConfig.RootFolderPath, currentConfigData.AssetFileName);
         }
     }
 }

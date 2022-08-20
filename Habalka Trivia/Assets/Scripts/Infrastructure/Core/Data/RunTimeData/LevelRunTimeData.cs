@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Trivia.Infrastructure.Application.Database.LevelDatabase.Data;
-using Trivia.Infrastructure.Core.MonoModels.Map;
+using Trivia.Infrastructure.Core.MonoModels.Level;
+using Trivia.Infrastructure.Core.MonoModels.MapCell;
 
 namespace Trivia.Infrastructure.Core.Data.RunTimeData
 {
@@ -7,6 +9,7 @@ namespace Trivia.Infrastructure.Core.Data.RunTimeData
     {
         public LevelDataModel CurrentLevelDataModel { get; set; } = null;
         public int CurrentActiveQuestionIndex { get; set; } = 0;
-        public MapViewModel MapViewModel { get; set; } = null;
+        public LevelViewModel LevelViewModel { get; set; } = null;
+        public List<CellCategoryViewModel> LevelCategoryCells { get; set; } = new List<CellCategoryViewModel>();
     }
 }
