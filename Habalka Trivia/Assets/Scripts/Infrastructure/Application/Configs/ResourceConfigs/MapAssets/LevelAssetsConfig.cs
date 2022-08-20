@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Trivia.Infrastructure.Application.Configs.ResourceConfigs.MapAssets
 {
-    [CreateAssetMenu(menuName = "Configs/Assets/Map Configs", fileName = "Map_Asset_Config")]
-    public class MapAssetsConfig : BaseResourceConfig
+    [CreateAssetMenu(menuName = "Configs/Core/Level Configs", fileName = "Level_Asset_Config")]
+    public class LevelAssetsConfig : BaseResourceConfig
     {
         [SerializeField] private List<MapAssetsConfigData> _assetsConfigData = new List<MapAssetsConfigData>();
 

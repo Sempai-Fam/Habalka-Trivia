@@ -6,7 +6,7 @@ namespace Trivia.Infrastructure.Application.Configs.ResourceConfigs.MapAssets
     public class MapAssetsConfigData
     {
         public string AssetFileName = string.Empty;
-        public MapAssetType MapAssetType;
+        public int LevelIndex = 0;
         public bool LoadAssetAsync = false;
     }
 }
